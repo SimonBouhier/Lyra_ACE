@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra Clean - AI Chat Interface</title>
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e14;
+            --bg-secondary: #131820;
+            --bg-tertiary: #1a1f2e;
+            --accent-primary: #00d4aa;
+            --accent-secondary: #7c3aed;
+            --text-primary: #e6e6e6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border-color: #2d3748;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --success-color: #10b981;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 100%;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--accent-primary);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .header-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .session-info {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        .new-session-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .new-session-btn:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        .modal-close:hover {
+            color: var(--error-color);
+        }
+
+        .modal-body {
+            padding: 1rem 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        .saves-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .save-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .save-item:hover {
+            border-color: var(--accent-primary);
+        }
+
+        .save-item.selected {
+            border-color: var(--accent-primary);
+            background: rgba(0, 212, 170, 0.1);
+        }
+
+        .save-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+
+        .save-item-model {
+            font-weight: 600;
+            color: var(--accent-secondary);
+            font-size: 0.85rem;
+        }
+
+        .save-item-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .save-item-filename {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .save-item-size {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .model-filter {
+            margin-bottom: 1rem;
+        }
+
+        .model-filter select {
+            width: 100%;
+        }
+
+        .no-saves {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+        }
+
+        /* Controls Panel */
+        .controls {
+            background: var(--bg-tertiary);
+            padding: 1rem 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .control-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        select {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.5rem 2rem 0.5rem 0.75rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            appearance: none;
+            min-width: 150px;
+            transition: all 0.2s;
+        }
+
+        select:hover {
+            border-color: var(--accent-primary);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+        }
+
+        .select-wrapper::after {
+            content: '▼';
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            cursor: pointer;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--text-secondary);
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+            background-color: white;
+        }
+
+        .toggle-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Chat Area */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--bg-primary);
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .messages::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-primary);
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .message.assistant .message-avatar {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+        }
+
+        .message-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 0;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .message-role {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .message.user .message-role {
+            color: #8b5cf6;
+        }
+
+        .message.assistant .message-role {
+            color: var(--accent-primary);
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .message-text {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .message.user .message-text {
+            background: var(--bg-tertiary);
+        }
+
+        /* Markdown Styling */
+        .message-text h1, .message-text h2, .message-text h3,
+        .message-text h4, .message-text h5, .message-text h6 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-primary);
+        }
+
+        .message-text h1 { font-size: 1.5rem; }
+        .message-text h2 { font-size: 1.3rem; }
+        .message-text h3 { font-size: 1.15rem; }
+
+        .message-text p {
+            margin-bottom: 0.75rem;
+        }
+
+        .message-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .message-text ul, .message-text ol {
+            margin: 0.75rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .message-text li {
+            margin-bottom: 0.25rem;
+        }
+
+        .message-text code {
+            background: var(--bg-primary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--accent-primary);
+        }
+
+        .message-text pre {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 0.75rem 0;
+        }
+
+        .message-text pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-primary);
+        }
+
+        .message-text blockquote {
+            border-left: 3px solid var(--accent-primary);
+            padding-left: 1rem;
+            margin: 0.75rem 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Table Styling */
+        .message-text table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.75rem 0;
+            font-size: 0.9rem;
+        }
+
+        .message-text th, .message-text td {
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+
+        .message-text th {
+            background: var(--bg-tertiary);
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .message-text tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .message-text tr:hover {
+            background: rgba(0, 212, 170, 0.05);
+        }
+
+        /* Horizontal rule */
+        .message-text hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 1rem 0;
+        }
+
+        /* Message Metadata */
+        .message-metadata {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .metadata-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .metadata-label {
+            color: var(--text-secondary);
+        }
+
+        .latency {
+            color: var(--accent-primary);
+            font-family: 'Courier New', monospace;
+        }
+
+        .latency.slow {
+            color: var(--warning-color);
+        }
+
+        .latency.very-slow {
+            color: var(--error-color);
+        }
+
+        .physics-state {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .physics-param {
+            background: var(--bg-primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Consciousness metrics */
+        .consciousness-metrics {
+            background: var(--bg-primary);
+            border: 1px solid var(--accent-secondary);
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .consciousness-title {
+            font-size: 0.8rem;
+            color: var(--accent-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .consciousness-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .consciousness-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .consciousness-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .consciousness-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        /* Memory echo */
+        .memory-echo {
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid var(--accent-secondary);
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .memory-echo-title {
+            font-size: 0.8rem;
+            color: var(--accent-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .memory-echo-content {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 1rem;
+            max-width: 100%;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        #messageInput {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            resize: none;
+            min-height: 60px;
+            max-height: 200px;
+            transition: all 0.2s;
+        }
+
+        #messageInput:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+        }
+
+        #messageInput::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-button {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 2rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .send-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 212, 170, 0.3);
+        }
+
+        .send-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .send-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Welcome Screen */
+        .welcome {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--accent-primary);
+        }
+
+        .feature-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .control-group {
+                justify-content: space-between;
+            }
+
+            .input-container {
+                flex-direction: column;
+            }
+
+            .send-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .welcome-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <div class="logo">LYRA CLEAN</div>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span id="statusText">Connected</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="session-info">
+                    <span>Session: </span><span id="sessionId">Loading...</span>
+                </div>
+                <button class="new-session-btn" id="saveSessionBtn" title="Save current session">
+                    Save
+                </button>
+                <button class="new-session-btn" id="loadSessionBtn" title="Load a saved session">
+                    Load
+                </button>
+                <button class="new-session-btn" id="newSessionBtn" title="Start a new session">
+                    New Session
+                </button>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="control-group">
+                <label class="control-label" for="profileSelect">Physics Profile:</label>
+                <div class="select-wrapper">
+                    <select id="profileSelect">
+                        <option value="balanced">Balanced</option>
+                        <option value="creative">Creative</option>
+                        <option value="safe">Safe</option>
+                        <option value="analytical">Analytical</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="consciousnessLevel">Consciousness:</label>
+                <div class="select-wrapper">
+                    <select id="consciousnessLevel">
+                        <option value="0">Level 0 - Passive</option>
+                        <option value="1">Level 1 - Observer</option>
+                        <option value="2">Level 2 - Adaptive</option>
+                        <option value="3">Level 3 - Memory</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="contextToggle">Graph Context:</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="contextToggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label" id="contextLabel">Enabled</span>
+            </div>
+
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container">
+            <div class="messages" id="messagesContainer">
+                <!-- Welcome screen (shown when no messages) -->
+                <div class="welcome" id="welcomeScreen">
+                    <div class="welcome-title">Welcome to Lyra Clean</div>
+                    <div class="welcome-subtitle">Physics-driven semantic AI chat system with consciousness levels</div>
+
+                    <div class="welcome-features">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <div class="feature-title">Bezier Physics</div>
+                            <div class="feature-description">Deterministic parameter trajectories for consistent behavior</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🧠</div>
+                            <div class="feature-title">Consciousness Levels</div>
+                            <div class="feature-description">From passive (0) to semantic memory (3) - choose your depth</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🕸️</div>
+                            <div class="feature-title">Semantic Context</div>
+                            <div class="feature-description">Graph-based context injection with O(log N) queries</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💾</div>
+                            <div class="feature-title">Session Memory</div>
+                            <div class="feature-description">Each session has isolated memory - no cross-contamination</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <textarea
+                            id="messageInput"
+                            placeholder="Type your message here... (Shift+Enter for new line)"
+                            rows="1"
+                        ></textarea>
+                    </div>
+                    <button class="send-button" id="sendButton">
+                        <span id="sendButtonText">Send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Session Modal -->
+    <div class="modal-overlay" id="loadModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Load Session</div>
+                <button class="modal-close" id="closeLoadModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="model-filter">
+                    <label class="control-label">Filter by model:</label>
+                    <div class="select-wrapper">
+                        <select id="modelFilter">
+                            <option value="">All models</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="saves-list" id="savesList">
+                    <div class="no-saves">Loading saves...</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="new-session-btn" id="cancelLoadBtn">Cancel</button>
+                <button class="send-button" id="confirmLoadBtn" disabled>Load Selected</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================================================
+        // MARKED.JS CONFIGURATION
+        // ========================================================================
+
+        marked.setOptions({
+            breaks: true,
+            gfm: true,
+            headerIds: false,
+            mangle: false
+        });
+
+        // ========================================================================
+        // STATE MANAGEMENT
+        // ========================================================================
+
+        const state = {
+            sessionId: null,
+            messages: [],
+            isLoading: false,
+            profile: 'balanced',
+            consciousnessLevel: 0,
+            enableContext: true,
+            maxHistory: 50,
+            currentModel: localStorage.getItem('lyra_model') || 'unknown',
+            saves: [],
+            selectedSave: null
+        };
+
+        // ========================================================================
+        // DOM ELEMENTS
+        // ========================================================================
+
+        const elements = {
+            messagesContainer: document.getElementById('messagesContainer'),
+            welcomeScreen: document.getElementById('welcomeScreen'),
+            messageInput: document.getElementById('messageInput'),
+            sendButton: document.getElementById('sendButton'),
+            sendButtonText: document.getElementById('sendButtonText'),
+            profileSelect: document.getElementById('profileSelect'),
+            consciousnessLevel: document.getElementById('consciousnessLevel'),
+            contextToggle: document.getElementById('contextToggle'),
+            contextLabel: document.getElementById('contextLabel'),
+            sessionIdDisplay: document.getElementById('sessionId'),
+            statusText: document.getElementById('statusText'),
+            newSessionBtn: document.getElementById('newSessionBtn'),
+            saveSessionBtn: document.getElementById('saveSessionBtn'),
+            loadSessionBtn: document.getElementById('loadSessionBtn'),
+            loadModal: document.getElementById('loadModal'),
+            closeLoadModal: document.getElementById('closeLoadModal'),
+            modelFilter: document.getElementById('modelFilter'),
+            savesList: document.getElementById('savesList'),
+            cancelLoadBtn: document.getElementById('cancelLoadBtn'),
+            confirmLoadBtn: document.getElementById('confirmLoadBtn')
+        };
+
+        // ========================================================================
+        // INITIALIZATION
+        // ========================================================================
+
+        function initialize() {
+            // Check if we're continuing a loaded session (survives page reload)
+            const continueSession = sessionStorage.getItem('lyra_continue_session');
+
+            if (continueSession) {
+                // Continue a session that was explicitly loaded via Load button
+                state.sessionId = continueSession;
+                sessionStorage.removeItem('lyra_continue_session');
+                console.log('[Lyra] Continuing loaded session:', state.sessionId);
+            } else {
+                // ALWAYS create a new session on page load
+                // Old sessions are accessible via the Load button
+                state.sessionId = generateUUID();
+                console.log('[Lyra] New session created:', state.sessionId);
+            }
+
+            localStorage.setItem('lyra_session_id', state.sessionId);
+            updateSessionDisplay();
+
+            // Load saved preferences
+            const savedProfile = localStorage.getItem('lyra_profile');
+            if (savedProfile) {
+                state.profile = savedProfile;
+                elements.profileSelect.value = savedProfile;
+            }
+
+            const savedConsciousness = localStorage.getItem('lyra_consciousness_level');
+            if (savedConsciousness !== null) {
+                state.consciousnessLevel = parseInt(savedConsciousness);
+                elements.consciousnessLevel.value = savedConsciousness;
+            }
+
+            const savedContext = localStorage.getItem('lyra_enable_context');
+            if (savedContext !== null) {
+                state.enableContext = savedContext === 'true';
+                elements.contextToggle.checked = state.enableContext;
+                updateContextLabel();
+            }
+
+            const savedHistory = localStorage.getItem('lyra_max_history');
+            if (savedHistory) {
+                state.maxHistory = parseInt(savedHistory);
+            }
+
+            // Event listeners
+            elements.sendButton.addEventListener('click', sendMessage);
+            elements.messageInput.addEventListener('keydown', handleInputKeydown);
+            elements.profileSelect.addEventListener('change', handleProfileChange);
+            elements.consciousnessLevel.addEventListener('change', handleConsciousnessChange);
+            elements.contextToggle.addEventListener('change', handleContextToggle);
+            elements.newSessionBtn.addEventListener('click', handleNewSession);
+
+            // Save/Load session event listeners
+            elements.saveSessionBtn.addEventListener('click', handleSaveSession);
+            elements.loadSessionBtn.addEventListener('click', openLoadModal);
+            elements.closeLoadModal.addEventListener('click', closeLoadModal);
+            elements.cancelLoadBtn.addEventListener('click', closeLoadModal);
+            elements.confirmLoadBtn.addEventListener('click', confirmLoadSession);
+            elements.modelFilter.addEventListener('change', handleModelFilterChange);
+
+            // Auto-resize textarea
+            elements.messageInput.addEventListener('input', autoResizeTextarea);
+
+            // Focus input
+            elements.messageInput.focus();
+
+            console.log('[Lyra] Initialized with session:', state.sessionId);
+        }
+
+        // ========================================================================
+        // UTILITY FUNCTIONS
+        // ========================================================================
+
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        function formatTime() {
+            const now = new Date();
+            return now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function updateSessionDisplay() {
+            elements.sessionIdDisplay.textContent = state.sessionId.substring(0, 8) + '...';
+            elements.sessionIdDisplay.title = state.sessionId;
+        }
+
+        function updateContextLabel() {
+            elements.contextLabel.textContent = state.enableContext ? 'Enabled' : 'Disabled';
+        }
+
+        function autoResizeTextarea() {
+            elements.messageInput.style.height = 'auto';
+            elements.messageInput.style.height = elements.messageInput.scrollHeight + 'px';
+        }
+
+        function hideWelcomeScreen() {
+            if (elements.welcomeScreen && state.messages.length > 0) {
+                elements.welcomeScreen.style.display = 'none';
+            }
+        }
+
+        function scrollToBottom() {
+            elements.messagesContainer.scrollTop = elements.messagesContainer.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ========================================================================
+        // MESSAGE RENDERING
+        // ========================================================================
+
+        function renderMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${message.role}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = message.role === 'user' ? 'U' : 'L';
+
+            const content = document.createElement('div');
+            content.className = 'message-content';
+
+            // Header
+            const header = document.createElement('div');
+            header.className = 'message-header';
+
+            const role = document.createElement('div');
+            role.className = 'message-role';
+            role.textContent = message.role === 'user' ? 'You' : 'Lyra';
+
+            const time = document.createElement('div');
+            time.className = 'message-time';
+            time.textContent = message.time || formatTime();
+
+            header.appendChild(role);
+            header.appendChild(time);
+
+            // Message text with markdown rendering
+            const text = document.createElement('div');
+            text.className = 'message-text';
+
+            if (message.role === 'assistant') {
+                // Parse markdown for assistant messages
+                text.innerHTML = marked.parse(message.text);
+            } else {
+                // Escape HTML for user messages
+                text.innerHTML = '<p>' + escapeHtml(message.text).replace(/\n/g, '<br>') + '</p>';
+            }
+
+            content.appendChild(header);
+            content.appendChild(text);
+
+            // Metadata (only for assistant messages)
+            if (message.role === 'assistant' && message.metadata) {
+                const metadata = document.createElement('div');
+                metadata.className = 'message-metadata';
+
+                // Latency
+                if (message.metadata.latency) {
+                    const totalLatency = message.metadata.latency.total;
+                    const latencyClass = totalLatency > 5000 ? 'very-slow' : totalLatency > 2000 ? 'slow' : '';
+
+                    metadata.innerHTML += `
+                        <div class="metadata-item">
+                            <span class="metadata-label">Total:</span>
+                            <span class="latency ${latencyClass}">${(totalLatency / 1000).toFixed(2)}s</span>
+                        </div>
+                    `;
+
+                    if (message.metadata.latency.context_extraction !== undefined) {
+                        metadata.innerHTML += `
+                            <div class="metadata-item">
+                                <span class="metadata-label">Context:</span>
+                                <span class="latency">${message.metadata.latency.context_extraction.toFixed(1)}ms</span>
+                            </div>
+                        `;
+                    }
+
+                    if (message.metadata.latency.llm_generation !== undefined) {
+                        metadata.innerHTML += `
+                            <div class="metadata-item">
+                                <span class="metadata-label">LLM:</span>
+                                <span class="latency">${(message.metadata.latency.llm_generation / 1000).toFixed(2)}s</span>
+                            </div>
+                        `;
+                    }
+                }
+
+                // Tokens
+                if (message.metadata.tokens) {
+                    metadata.innerHTML += `
+                        <div class="metadata-item">
+                            <span class="metadata-label">Tokens:</span>
+                            <span>${message.metadata.tokens.prompt} / ${message.metadata.tokens.completion} (${message.metadata.tokens.total})</span>
+                        </div>
+                    `;
+                }
+
+                // Physics state
+                if (message.metadata.physics_state) {
+                    const ps = message.metadata.physics_state;
+                    metadata.innerHTML += `
+                        <div class="metadata-item">
+                            <span class="metadata-label">Physics:</span>
+                            <div class="physics-state">
+                                <span class="physics-param">t=${ps.t.toFixed(2)}</span>
+                                <span class="physics-param">tc=${ps.tau_c.toFixed(2)}</span>
+                                <span class="physics-param">r=${ps.rho.toFixed(2)}</span>
+                                <span class="physics-param">dr=${ps.delta_r.toFixed(2)}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                content.appendChild(metadata);
+
+                // Consciousness metrics (if level >= 1)
+                if (message.metadata.consciousness) {
+                    const cm = message.metadata.consciousness;
+                    const consciousnessDiv = document.createElement('div');
+                    consciousnessDiv.className = 'consciousness-metrics';
+                    consciousnessDiv.innerHTML = `
+                        <div class="consciousness-title">Consciousness Metrics (Level ${state.consciousnessLevel})</div>
+                        <div class="consciousness-grid">
+                            <div class="consciousness-item">
+                                <span class="consciousness-label">Coherence</span>
+                                <span class="consciousness-value">${(cm.coherence || 0).toFixed(2)}</span>
+                            </div>
+                            <div class="consciousness-item">
+                                <span class="consciousness-label">Tension</span>
+                                <span class="consciousness-value">${(cm.tension || 0).toFixed(2)}</span>
+                            </div>
+                            <div class="consciousness-item">
+                                <span class="consciousness-label">Fit</span>
+                                <span class="consciousness-value">${(cm.fit || 0).toFixed(2)}</span>
+                            </div>
+                            <div class="consciousness-item">
+                                <span class="consciousness-label">Stability</span>
+                                <span class="consciousness-value">${(cm.stability_score || 0).toFixed(2)}</span>
+                            </div>
+                        </div>
+                    `;
+                    content.appendChild(consciousnessDiv);
+                }
+
+                // Memory echo (if level 3)
+                if (message.metadata.memory_echo) {
+                    const memoryDiv = document.createElement('div');
+                    memoryDiv.className = 'memory-echo';
+                    memoryDiv.innerHTML = `
+                        <div class="memory-echo-title">Memory Echo</div>
+                        <div class="memory-echo-content">${escapeHtml(message.metadata.memory_echo)}</div>
+                    `;
+                    content.appendChild(memoryDiv);
+                }
+            }
+
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+
+            return messageDiv;
+        }
+
+        function addMessage(role, text, metadata = null) {
+            const message = {
+                role,
+                text,
+                time: formatTime(),
+                metadata
+            };
+
+            state.messages.push(message);
+
+            hideWelcomeScreen();
+
+            const messageElement = renderMessage(message);
+            elements.messagesContainer.appendChild(messageElement);
+
+            scrollToBottom();
+        }
+
+        // ========================================================================
+        // API COMMUNICATION
+        // ========================================================================
+
+        async function sendMessage() {
+            const text = elements.messageInput.value.trim();
+
+            if (!text || state.isLoading) {
+                return;
+            }
+
+            // Add user message
+            addMessage('user', text);
+
+            // Clear input
+            elements.messageInput.value = '';
+            elements.messageInput.style.height = 'auto';
+
+            // Set loading state
+            setLoading(true);
+
+            try {
+                const response = await fetch('/chat/message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        session_id: state.sessionId,
+                        profile: state.profile,
+                        consciousness_level: state.consciousnessLevel,
+                        enable_context: state.enableContext,
+                        max_history: state.maxHistory
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || 'API request failed');
+                }
+
+                const data = await response.json();
+
+                // Add assistant response with metadata
+                addMessage('assistant', data.text, {
+                    latency: data.latency,
+                    tokens: data.tokens,
+                    physics_state: data.physics_state,
+                    context: data.context,
+                    consciousness: data.consciousness,
+                    memory_echo: data.memory_echo
+                });
+
+                // Update current model from response
+                if (data.model) {
+                    state.currentModel = data.model;
+                    localStorage.setItem('lyra_model', data.model);
+                    console.log('[Lyra] Model:', data.model);
+                }
+
+                // Update session ID if it changed
+                if (data.session_id && data.session_id !== state.sessionId) {
+                    state.sessionId = data.session_id;
+                    localStorage.setItem('lyra_session_id', state.sessionId);
+                    updateSessionDisplay();
+                }
+
+            } catch (error) {
+                console.error('[Lyra] Error:', error);
+                addMessage('assistant', `Error: ${error.message}. Please try again.`);
+                elements.statusText.textContent = 'Connection Error';
+            } finally {
+                setLoading(false);
+                elements.messageInput.focus();
+            }
+        }
+
+        function setLoading(loading) {
+            state.isLoading = loading;
+            elements.sendButton.disabled = loading;
+            elements.messageInput.disabled = loading;
+
+            if (loading) {
+                elements.sendButtonText.innerHTML = '<div class="spinner"></div>';
+            } else {
+                elements.sendButtonText.textContent = 'Send';
+            }
+        }
+
+        // ========================================================================
+        // EVENT HANDLERS
+        // ========================================================================
+
+        function handleInputKeydown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function handleProfileChange(e) {
+            state.profile = e.target.value;
+            localStorage.setItem('lyra_profile', state.profile);
+            console.log('[Lyra] Profile changed to:', state.profile);
+        }
+
+        function handleConsciousnessChange(e) {
+            state.consciousnessLevel = parseInt(e.target.value);
+            localStorage.setItem('lyra_consciousness_level', state.consciousnessLevel);
+            console.log('[Lyra] Consciousness level changed to:', state.consciousnessLevel);
+        }
+
+        function handleContextToggle(e) {
+            state.enableContext = e.target.checked;
+            localStorage.setItem('lyra_enable_context', state.enableContext);
+            updateContextLabel();
+            console.log('[Lyra] Context injection:', state.enableContext ? 'enabled' : 'disabled');
+        }
+
+
+        function handleNewSession() {
+            // Generate new session ID
+            state.sessionId = generateUUID();
+            localStorage.setItem('lyra_session_id', state.sessionId);
+            updateSessionDisplay();
+
+            // Clear messages
+            state.messages = [];
+            elements.messagesContainer.innerHTML = '';
+
+            // Show welcome screen again
+            elements.messagesContainer.innerHTML = `
+                <div class="welcome" id="welcomeScreen">
+                    <div class="welcome-title">Welcome to Lyra Clean</div>
+                    <div class="welcome-subtitle">Physics-driven semantic AI chat system with consciousness levels</div>
+                    <div class="welcome-features">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <div class="feature-title">Bezier Physics</div>
+                            <div class="feature-description">Deterministic parameter trajectories for consistent behavior</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🧠</div>
+                            <div class="feature-title">Consciousness Levels</div>
+                            <div class="feature-description">From passive (0) to semantic memory (3) - choose your depth</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🕸️</div>
+                            <div class="feature-title">Semantic Context</div>
+                            <div class="feature-description">Graph-based context injection with O(log N) queries</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💾</div>
+                            <div class="feature-title">Session Memory</div>
+                            <div class="feature-description">Each session has isolated memory - no cross-contamination</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            elements.welcomeScreen = document.getElementById('welcomeScreen');
+
+            console.log('[Lyra] New session created:', state.sessionId);
+            elements.messageInput.focus();
+        }
+
+        // ========================================================================
+        // SAVE/LOAD SESSION HANDLERS
+        // ========================================================================
+
+        async function handleSaveSession() {
+            if (state.messages.length === 0) {
+                alert('No messages to save. Start a conversation first.');
+                return;
+            }
+
+            try {
+                // Get current model from server or use stored value
+                const model = state.currentModel || 'unknown';
+
+                const response = await fetch(`/sessions/${state.sessionId}/save?model=${encodeURIComponent(model)}`, {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || 'Failed to save session');
+                }
+
+                const data = await response.json();
+                alert(`Session saved successfully!\n\nFile: ${data.filename}\nMessages: ${data.message_count}`);
+                console.log('[Lyra] Session saved:', data);
+
+            } catch (error) {
+                console.error('[Lyra] Save error:', error);
+                alert(`Failed to save session: ${error.message}`);
+            }
+        }
+
+        async function openLoadModal() {
+            // Show modal
+            elements.loadModal.classList.add('active');
+
+            // Reset state
+            state.selectedSave = null;
+            elements.confirmLoadBtn.disabled = true;
+
+            // Load models list and saves
+            await loadSavesData();
+        }
+
+        function closeLoadModal() {
+            elements.loadModal.classList.remove('active');
+            state.selectedSave = null;
+        }
+
+        async function loadSavesData() {
+            try {
+                // Load models list
+                const modelsResponse = await fetch('/saves/models');
+                if (modelsResponse.ok) {
+                    const modelsData = await modelsResponse.json();
+                    populateModelFilter(modelsData.models);
+                }
+
+                // Load saves (optionally filtered)
+                await loadSavesList();
+
+            } catch (error) {
+                console.error('[Lyra] Failed to load saves data:', error);
+                elements.savesList.innerHTML = '<div class="no-saves">Failed to load saves</div>';
+            }
+        }
+
+        function populateModelFilter(models) {
+            elements.modelFilter.innerHTML = '<option value="">All models</option>';
+            models.forEach(modelInfo => {
+                const option = document.createElement('option');
+                // modelInfo is an object with {model, save_count, path}
+                const modelName = typeof modelInfo === 'string' ? modelInfo : modelInfo.model;
+                option.value = modelName;
+                option.textContent = `${modelName} (${modelInfo.save_count || 0})`;
+                elements.modelFilter.appendChild(option);
+            });
+        }
+
+        async function loadSavesList() {
+            const modelFilter = elements.modelFilter.value;
+            const url = modelFilter ? `/saves?model=${encodeURIComponent(modelFilter)}` : '/saves';
+
+            try {
+                elements.savesList.innerHTML = '<div class="no-saves">Loading...</div>';
+
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to load saves');
+                }
+
+                const data = await response.json();
+                state.saves = data.saves;
+
+                renderSavesList();
+
+            } catch (error) {
+                console.error('[Lyra] Failed to load saves:', error);
+                elements.savesList.innerHTML = '<div class="no-saves">Failed to load saves</div>';
+            }
+        }
+
+        function renderSavesList() {
+            if (state.saves.length === 0) {
+                elements.savesList.innerHTML = '<div class="no-saves">No saved sessions found</div>';
+                return;
+            }
+
+            elements.savesList.innerHTML = '';
+
+            state.saves.forEach(save => {
+                const item = document.createElement('div');
+                item.className = 'save-item';
+                item.dataset.filepath = save.filepath;
+
+                // Format date
+                const date = new Date(save.timestamp);
+                const formattedDate = date.toLocaleString();
+
+                // Format file size
+                const sizeKB = (save.size_bytes / 1024).toFixed(1);
+
+                item.innerHTML = `
+                    <div class="save-item-header">
+                        <span class="save-item-model">${escapeHtml(save.model)}</span>
+                        <span class="save-item-date">${formattedDate}</span>
+                    </div>
+                    <div class="save-item-filename">${escapeHtml(save.filename)}</div>
+                    <div class="save-item-size">${sizeKB} KB</div>
+                `;
+
+                item.addEventListener('click', () => selectSave(save, item));
+                elements.savesList.appendChild(item);
+            });
+        }
+
+        function selectSave(save, element) {
+            // Deselect all
+            document.querySelectorAll('.save-item').forEach(el => {
+                el.classList.remove('selected');
+            });
+
+            // Select this one
+            element.classList.add('selected');
+            state.selectedSave = save;
+            elements.confirmLoadBtn.disabled = false;
+        }
+
+        function handleModelFilterChange() {
+            loadSavesList();
+        }
+
+        async function confirmLoadSession() {
+            if (!state.selectedSave) {
+                return;
+            }
+
+            try {
+                const filepath = state.selectedSave.filepath;
+
+                const response = await fetch(`/sessions/load?filepath=${encodeURIComponent(filepath)}`, {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || 'Failed to load session');
+                }
+
+                const data = await response.json();
+
+                // Update session ID
+                state.sessionId = data.session_id;
+                localStorage.setItem('lyra_session_id', state.sessionId);
+                // Mark this session for continuation (survives page reload)
+                sessionStorage.setItem('lyra_continue_session', state.sessionId);
+                updateSessionDisplay();
+
+                // Update current model
+                state.currentModel = data.model;
+                localStorage.setItem('lyra_model', data.model);
+
+                // Clear and rebuild messages
+                state.messages = [];
+                elements.messagesContainer.innerHTML = '';
+
+                // Add loaded messages to UI
+                if (data.messages && data.messages.length > 0) {
+                    data.messages.forEach(msg => {
+                        addMessage(msg.role, msg.content);
+                    });
+                } else {
+                    // Show welcome screen if no messages
+                    handleNewSession();
+                }
+
+                closeLoadModal();
+
+                console.log('[Lyra] Session loaded:', data.session_id, 'with', data.message_count, 'messages');
+                alert(`Session loaded successfully!\n\nModel: ${data.model}\nMessages: ${data.message_count}`);
+
+            } catch (error) {
+                console.error('[Lyra] Load error:', error);
+                alert(`Failed to load session: ${error.message}`);
+            }
+        }
+
+        // ========================================================================
+        // START APPLICATION
+        // ========================================================================
+
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>

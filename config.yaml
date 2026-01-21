@@ -1,0 +1,119 @@
+# ============================================================================
+# LYRA CLEAN - CONFIGURATION
+# ============================================================================
+# Production configuration for Lyra Clean API
+# ============================================================================
+
+# ============================================================================
+# SERVER
+# ============================================================================
+server:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4                    # Number of Uvicorn workers
+  reload: false                 # Auto-reload (dev only)
+  log_level: "info"             # debug, info, warning, error
+
+# ============================================================================
+# DATABASE
+# ============================================================================
+database:
+  path: "data/ispace.db"        # SQLite database file
+  backup_interval_hours: 24     # Auto-backup frequency
+  vacuum_interval_days: 7       # VACUUM + ANALYZE frequency
+
+# ============================================================================
+# LLM (Ollama)
+# ============================================================================
+# Note: Ollama supporte jusqu'à 128k-256k tokens selon le modèle
+# Ajustez num_ctx selon votre mémoire GPU/RAM disponible
+# ============================================================================
+llm:
+  base_url: "http://localhost:11434"
+  model: "gpt-oss:20b"          # Default model (override via LYRA_MODEL env var)
+  timeout: 180.0                # Request timeout (seconds) - increased for large contexts
+  max_retries: 3                # Retry attempts on failure
+  num_ctx: 8192                 # Context window size (tokens). Recommended options:
+                                #   - 4096:  Fast, low memory (~4GB GPU)
+                                #   - 8192:  Balanced, standard usage (~8GB GPU)
+                                #   - 16384: Long conversations (~16GB GPU)
+                                #   - 32768: Extended context (~24GB+ GPU)
+                                #   - 131072: Maximum (128k) - requires lots of RAM
+
+# ============================================================================
+# PHYSICS ENGINE
+# ============================================================================
+physics:
+  default_profile: "balanced"   # Default Bezier profile
+  time_mapping: "logarithmic"   # linear, logarithmic, sigmoid
+  max_messages_window: 100      # Max messages for t ∈ [0, 1] mapping
+
+# ============================================================================
+# CONTEXT INJECTION
+# ============================================================================
+context:
+  enabled: true                 # Enable semantic context injection
+  max_keywords: 5               # Max keywords extracted per prompt
+  max_neighbors: 15             # Max semantic neighbors per query
+  min_weight: 0.1               # Min PPMI weight threshold
+  max_context_length: 200       # Max context string length (chars)
+
+# ============================================================================
+# SESSION MANAGEMENT
+# ============================================================================
+# Note: max_history_messages controls how many messages are sent to the LLM
+# max_token_budget is a soft limit to avoid exceeding num_ctx
+# To use large contexts, increase both in coherence with num_ctx
+# ============================================================================
+sessions:
+  max_history_messages: 50      # Max conversation history per request (was 20)
+  max_token_budget: 6000        # Approximate token budget for history (was 4000)
+  auto_cleanup_days: 30         # Delete sessions inactive > N days
+
+# ============================================================================
+# PERFORMANCE
+# ============================================================================
+performance:
+  connection_pool_size: 10      # HTTP connection pool size
+  request_timeout: 180.0        # Global request timeout
+  max_concurrent_requests: 100  # Rate limiting
+
+# ============================================================================
+# LOGGING
+# ============================================================================
+logging:
+  level: "info"                 # debug, info, warning, error
+  format: "json"                # json, text
+  file: "logs/lyra.log"         # Log file path (optional)
+  rotate_size_mb: 100           # Log rotation size
+  rotate_backups: 5             # Number of backup log files
+
+# ============================================================================
+# CORS (Cross-Origin Resource Sharing)
+# ============================================================================
+cors:
+  enabled: true
+  origins:                      # Allowed origins (["*"] = all)
+    - "http://localhost:8000"
+    - "http://127.0.0.1:8000"
+    - "http://localhost:3000"
+    - "http://localhost:8080"
+  # Production: Restrict to your frontend domain
+  # origins:
+  #   - "https://yourdomain.com"
+
+# ============================================================================
+# MONITORING (Future)
+# ============================================================================
+monitoring:
+  enabled: false
+  prometheus_port: 9090
+  health_check_interval: 60     # Seconds
+
+# ============================================================================
+# SECURITY (Production)
+# ============================================================================
+security:
+  api_key_enabled: false        # Enable API key authentication
+  rate_limit_per_minute: 60     # Requests per minute per IP
+  max_request_size_mb: 10       # Max request body size

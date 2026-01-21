@@ -1,0 +1,126 @@
+# ============================================================================
+# LYRA CLEAN - DOCKER COMPOSE CONFIGURATION
+# ============================================================================
+# Complete stack: Lyra API + Ollama LLM
+# ============================================================================
+
+version: '3.8'
+
+services:
+  # ==========================================================================
+  # LYRA CLEAN API
+  # ==========================================================================
+  lyra-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lyra-clean-api
+    restart: unless-stopped
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      # Mount database for persistence
+      - ./data:/app/data
+
+      # Mount logs directory
+      - ./logs:/app/logs
+
+      # Mount config (optional: override defaults)
+      - ./config.yaml:/app/config.yaml:ro
+
+    environment:
+      # Override config via environment variables
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - DATABASE_PATH=/app/data/ispace.db
+      - LOG_LEVEL=info
+
+    depends_on:
+      ollama:
+        condition: service_healthy
+
+    networks:
+      - lyra-network
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ==========================================================================
+  # OLLAMA LLM SERVER
+  # ==========================================================================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: lyra-ollama
+    restart: unless-stopped
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      # Persist Ollama models
+      - ollama-models:/root/.ollama
+
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+
+    networks:
+      - lyra-network
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+    # GPU support (NVIDIA)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+# ============================================================================
+# NETWORKS
+# ============================================================================
+networks:
+  lyra-network:
+    driver: bridge
+
+# ============================================================================
+# VOLUMES
+# ============================================================================
+volumes:
+  ollama-models:
+    driver: local
+    name: lyra-ollama-models
+
+# ============================================================================
+# USAGE INSTRUCTIONS
+# ============================================================================
+# 1. Start services:
+#    docker-compose up -d
+#
+# 2. Pull Ollama model (first time):
+#    docker exec lyra-ollama ollama pull gpt-oss:20b
+#
+# 3. Check health:
+#    docker-compose ps
+#    curl http://localhost:8000/health
+#
+# 4. View logs:
+#    docker-compose logs -f lyra-api
+#
+# 5. Stop services:
+#    docker-compose down
+#
+# 6. Stop and remove volumes:
+#    docker-compose down -v
+# ============================================================================
