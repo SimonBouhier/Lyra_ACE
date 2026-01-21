@@ -12,7 +12,7 @@
 
 ### Vue d'ensemble
 
-**Lyra ACE** est un système conversationnel LLM innovant qui utilise des **trajectoires de Bézier** pour contrôler de manière déterministe les paramètres de génération (température, pénalités) plutôt que des boucles de feedback réactives.
+**Lyra ACE** est un système conversationnel LLM innovant qui utilise des **trajectoires de Bézier** pour contrôler de manière déterministe les paramètres de génération (température, pénalités) et qui a pour objectif de "chercher le 0-cochain" des systèmes cognitifs augmentés à travers la construction d'un RAG partagé et pondéré par plusieurs moteurs.
 
 **Philosophie de conception :**
 - 🎯 **Trajectoires balistiques** : Comportement prévisible et ajustable
