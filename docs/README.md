@@ -123,10 +123,11 @@ docs/
 ## Support
 
 - 📖 Documentation: You're here!
-- 🐛 Report bugs: [GitHub Issues](https://github.com/yourusername/lyra_clean_bis/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/lyra_clean_bis/discussions)
-- 📧 Email: support@example.com
+- 🐛 Report bugs: [GitHub Issues](https://github.com/SimonBouhier/Lyra_ACE/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/SimonBouhier/Lyra_ACE/discussions)
+- 📧 Email: simon.bouhier@proton.me
 
 ---
 
 **License**: MIT - see [LICENSE](../LICENSE)
+
