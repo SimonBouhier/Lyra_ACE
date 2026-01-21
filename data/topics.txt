@@ -1,0 +1,1728 @@
+Wavefunction
+Schrödinger equation
+Heisenberg uncertainty principle
+Photon
+Quantum state
+Superposition
+Entanglement
+Bell's theorem
+EPR paradox
+Quantum teleportation
+Quantum cryptography
+Quantum key distribution
+SPDC (Spontaneous parametric down-conversion)
+Four-wave mixing
+Squeezed light
+Coherent state
+Fock state
+Cat state
+Schrödinger cat
+Wigner function
+Husimi Q-function
+Glauber-Sudarshan P-representation
+Quantum non-demolition measurement
+Homodyne detection
+Heterodyne detection
+Photodetection
+Photon counting
+Photon number resolving detector
+Single-photon source
+Heralded single photon
+Quantum dot
+NV center
+Trapped ion
+Cavity QED
+Circuit QED
+Optical lattice
+Bose-Einstein condensate
+Quantum interference
+Hong-Ou-Mandel effect
+Mach-Zehnder interferometer
+Ramsey interferometry
+Optical phase estimation
+Quantum Fisher information
+Quantum metrology
+Heisenberg limit
+Standard quantum limit
+Quantum noise
+Shot noise
+Vacuum fluctuations
+Radiation pressure noise
+Quantum backaction
+Quantum efficiency
+Photon blockade
+Jaynes-Cummings model
+Binding energy
+Mass defect
+Nuclear binding energy per nucleon
+Semi-empirical mass formula
+Liquid drop model
+Shell model
+Magic numbers
+Spin-orbit coupling
+Nuclear deformation
+Quadrupole moment
+Octupole deformation
+Nuclear fission
+Nuclear fusion
+Spontaneous fission
+Induced fission
+Neutron capture
+Proton capture
+Radiative capture
+Electron capture
+Double beta decay
+Alpha decay
+Gamma decay
+Isomeric transition
+Nuclear isomer
+Nuclear spin
+Parity
+Isospin
+Isospin symmetry
+Mirror nuclei
+Coulomb barrier
+Gamow factor
+Tunneling
+Cross section
+Statistique canonique
+Ensemble microcanonique
+Ensemble grand canonique
+Fonction de partition
+Entropie
+Température
+Pression
+Volume
+Énergie libre
+Enthalpie
+Potentiel chimique
+Potentiel de Gibbs
+Potentiel de Helmholtz
+Résonance
+Mode de vibration
+Oscillateur harmonique
+Oscillateur quantique
+Distribution de Maxwell-Boltzmann
+Distribution de Bose-Einstein
+Distribution de Fermi-Dirac
+Statistique de Boltzmann
+État d'équilibre
+Transition de phase
+Point critique
+Point triple
+Point de fusion
+Point de vaporisation
+Point de condensation
+Coefficient de compressibilité
+Coefficient de dilatation thermique
+Coefficient de viscosité
+Coefficient de conductivité thermique
+Coefficient de diffusion
+Coefficient de réactivité
+Coefficient de réfraction
+Coefficient de transmission
+Énergie cinétique
+Énergie potentielle
+Énergie totale
+Champ magnétique
+Champ électrique
+Force de Lorentz
+Théorie des ensembles de microstates
+Théorie de l'information
+Théorie de la fluctuation
+Théorie de la répartition
+Théorie de l'équilibre
+Théorie des perturbations
+Théorie de la transmission
+Théorie de la diffusion
+Théorie de la conduction
+Théorie de la résistance
+Théorie de l'absorption
+Théorie de l'émission
+Théorie de la catalyse
+Théorie de la réacteur
+Théorie de la thermodynamique
+Théorie de l'irrégularité
+Théorie de l'instabilité
+Théorie de la stabilité
+Théorie de la relaxation
+Théorie de la densité
+Théorie de la probabilité
+Théorie de la statistique
+Théorie de la corrélation
+Théorie de la cohérence
+Théorie de l'interaction
+Théorie des collisions
+Théorie de la dynamique
+Théorie de la mécanique
+Théorie de la gravitation
+Théorie de la relativité
+Théorie de la quantification
+Théorie de la symétrie
+Équation d'état
+Équation de Maxwell
+Équation de Navier-Stokes
+Équation de diffusion
+Équation de Schrödinger
+Équation de Poisson
+Équation de Boltzmann
+Équation d'onde
+Équation de Klein-Gordon
+Équation de Dirac
+Équation de Laplace
+Équation de Poisson-B
+Wheeler-DeWitt equation
+Minisuperspace
+Quantum tunneling
+Quantum foam
+Hartle-Hawking no-boundary proposal
+Vilenkin tunneling proposal
+Loop quantum cosmology
+Causal dynamical triangulations
+Asymptotic safety
+String gas cosmology
+Brane cosmology
+Holographic cosmology
+Ekpyrotic scenario
+Pre-Big Bang scenario
+Inflationary cosmology
+Quantum fluctuations
+Primordial perturbations
+Cosmic microwave background anisotropies
+BKL singularity
+Mixmaster universe
+Quantum bounce
+Planck epoch
+Quantum gravity
+Canonical quantization
+Path integral quantization
+Spin foam models
+Group field theory
+Discrete spacetime
+Causal sets
+Non-commutative geometry
+Quantum geometry
+Quantum fields in curved spacetime
+Hawking radiation
+Black hole entropy
+De Sitter space
+Anti-de Sitter space
+Quantum de Sitter
+Cosmological constant problem
+Dark energy
+Vacuum energy
+Quantum vacuum
+Entanglement entropy
+Quantum decoherence
+Anthropic principle
+Landscape of vacua
+Moduli stabilization
+Flux compactification
+D-branes
+M-theory
+F-theory
+Compactification
+Geometrical flux
+Superstring theory
+Higher-dimensional operators
+Effective field theory
+Renormalization group flow
+Gravitational instantons
+Euclidean quantum gravity
+Quantum cosmological perturbation theory
+Supergravity
+Kaluza-Klein theory
+Extra dimensions
+Brane inflation
+Tachyon condensation
+Swampland conjecture
+Null energy condition
+Weak gravity conjecture
+Quintessence
+Phantom energy
+Cosmic variance
+Observational constraints
+Lyth bound
+Slow-roll parameters
+Tensor-to-scalar ratio
+Spectral index
+Non-Gaussianity
+Reheating
+Preheating
+Particle production
+Thermal history
+Baryogenesis
+Leptogenesis
+Quantum phase transitions
+Topological defects
+Cosmic strings
+Domain walls
+Monopoles
+Inflationary reheating
+Quantum backreaction
+Semiclassical gravity
+Lorentz violation
+Time parameterization
+Emergent time
+Quantum spacetime foam
+Planck length
+Planck mass
+Planck time
+Quantum cosmological constant
+Quantum vacuum decay
+Quantum cosmological constant problem
+Quantum cosmological solutions
+Quantum cosmological models
+Quantum cosmological singularities
+Quantum cosmological no-boundary
+Quantum cosmological tunneling
+Quantum cosmological inflation
+Quantum cosmological perturbations
+Quantum cosmological observables
+Quantum cosmological data analysis
+Quantum cosmological simulations
+Quantum cosmological experiments
+Quantum cosmological predictions
+Quantum cosmological consistency.
+Loop Quantum Gravity
+Spin Networks
+Spin Foams
+Causal Dynamical Triangulations
+Asymptotic Safety
+Wheeler–DeWitt Equation
+Quantum Geometrodynamics
+Background Independence
+Quantum Causal Histories
+Group Field Theory
+Tensor Models
+Matrix Models
+Noncommutative Geometry
+Spectral Action
+Quantum Einstein Gravity
+Holographic Principle
+AdS/CFT Correspondence
+Black Hole Entropy
+Hawking Radiation
+Bekenstein–Hawking Formula
+Information Paradox
+Firewall Paradox
+Soft Hair
+Quantum State of the Universe
+Path Integral Quantization
+Euclidean Quantum Gravity
+Lorentzian Path Integral
+Wheeler–DeWitt Wavefunction
+Minisuperspace Model
+Superspace
+String Theory
+Brane-World Scenarios
+Extra Dimensions
+Kaluza–Klein Theory
+Moduli Stabilization
+Swampland Conjecture
+Swampland Distance Conjecture
+Weak Gravity Conjecture
+Landscape
+Cosmological Constant Problem
+Vacuum Energy
+Dynamical Triangulation
+Regge Calculus
+Biodiversity
+Ecosystem services
+Keystone species
+Ecological succession
+Habitat fragmentation
+Ecosystem resilience
+Biogeochemical cycles
+Nutrient cycling
+Primary productivity
+Trophic levels
+Food webs
+Energy flow
+Ecological niche
+Population dynamics
+Community structure
+Species richness
+Species evenness
+Genetic diversity
+Ecological footprint
+Carrying capacity
+Density dependence
+Density independence
+Invasive species
+Endangered species
+Conservation biology
+Restoration ecology
+Landscape ecology
+Metapopulation
+Metacommunity
+Habitat connectivity
+Edge effects
+Ecotone
+Biodiversity hotspot
+Ecosystem function
+Functional diversity
+Structural diversity
+Ecological stoichiometry
+Ecological modeling
+Population genetics
+Gene flow
+Genetic drift
+Natural selection
+Evolutionary ecology
+Coevolution
+Mutualism
+Parasitism
+Competition
+Predation
+Herbivory
+Soil fertility
+Cell membrane
+Cytoplasm
+Nucleus
+Ribosome
+Mitochondria
+Lysosome
+Peroxisome
+Endoplasmic reticulum
+Golgi apparatus
+Cytoskeleton
+Actin
+Microtubule
+Intermediate filament
+Cell adhesion
+Cell signaling
+Receptor
+Ligand
+Signal transduction
+G-protein-coupled receptor
+Ion channel
+Endocytosis
+Exocytosis
+Autophagy
+Apoptosis
+Cell cycle
+Mitosis
+Meiosis
+DNA replication
+Transcription
+Translation
+RNA polymerase
+Ribosomal RNA
+Protein synthesis
+Post-translational modification
+Phosphorylation
+Glycosylation
+Ubiquitination
+Proteasome
+Chloroplast
+Photosynthesis
+Cytokinesis
+Cell polarity
+Cell differentiation
+Stem cell
+Embryogenesis
+Morphogenesis
+Tissue
+Organ
+Organelle
+Plasma membrane asymmetry
+Lipid bilayer
+Phospholipid
+Cholesterol
+Glycolipid
+Protein folding
+Chaperone
+Heat shock protein
+Membrane potential
+Action potential
+Synapse
+Neurotransmitter
+Gap junction
+Tight junction
+Desmosome
+Basal lamina
+Extracellular matrix
+Matrix metalloproteinase
+Signal peptide
+Transmembrane domain
+Nuclear pore
+Chromatin
+Histone
+Epigenetics
+DNA methylation
+Histone acetylation
+Chromosome
+Centromere
+Telomere
+Replication fork
+DNA polymerase
+DNA ligase
+DNA helicase
+DNA repair
+Base excision repair
+Nucleotide excision repair
+Mismatch repair
+Mitogen-activated protein kinase
+Cyclin-dependent kinase
+Reactive oxygen species
+Antioxidant defense
+Autocrine signaling
+Paracrine signaling
+Endocrine signaling
+Cell cycle checkpoints
+Mitotic spindle
+Centrosome
+Kinetochore
+Anaphase
+Telophase
+Cytoplasmic streaming
+Vesicular trafficking
+Exosome
+Microvesicle
+Proteoglycan
+Collagen
+Fibronectin
+Laminin
+Integrin
+Cadherin
+Lamin
+Myosin
+Actin-binding protein
+Myosin light chain kinase
+Protein kinase C
+Phosphatidylinositol 3-kinase
+Akt
+MAPK/ERK pathway
+JAK-STAT pathway
+NF-κB pathway
+Wnt signaling
+Hedgehog signaling
+Notch signaling
+TGF-β signaling
+Cell cycle arrest
+DNA damage response
+Apoptotic signaling
+Autophagic flux
+Organelle biogenesis
+Organelle inheritance
+Mitochondrial dynamics
+Biogenesis
+Mitochondrial DNA
+Mitochondrial transcription
+Mitochondrial translation
+Mitochondrial protein import
+Lysosomal enzyme
+Endolysosomal pathway
+Autoph
+Germ layers
+Cell fate specification
+Gene regulatory networks
+Transcription factors
+Hox genes
+Homeobox genes
+BMP signaling
+FGF signaling
+TGF-beta signaling
+RA signaling
+Retinoic acid
+Morphogens
+Gradient formation
+Induction
+Repression
+Activin
+Nodal
+Cadherins
+Integrins
+Programmed cell death
+EMT (Epithelial-Mesenchymal Transition)
+MET (Mesenchymal-Epithelial Transition)
+Cell proliferation
+Cell cycle regulation
+Cyclins
+CDKs
+Checkpoints
+Ploidy
+Polyploidy
+Gene expression profiling
+RNA-Seq
+In situ hybridization
+Immunostaining
+CRISPR-Cas9
+Apprentissage social
+Apprentissage par observation
+Apprentissage par renforcement
+Apprentissage par imitation
+Apprentissage par exploration
+Apprentissage par expérience
+Apprentissage par conditionnement
+Apprentissage par transfert
+Apprentissage par imitation inversée
+Apprentissage supervisé
+Apprentissage non supervisé
+Apprentissage semi-supervisé
+Apprentissage en profondeur
+Apprentissage par renforcement profond
+Apprentissage par renforcement multi-objectif
+Apprentissage par renforcement multi-agent
+Apprentissage par renforcement inverse
+Apprentissage par renforcement inverse inverse
+Apprentissage par
+Gene therapy
+Recombinant DNA
+Genome editing
+Synthetic biology
+Gene drive
+Transgenic organisms
+Stem cell therapy
+Pluripotent stem cells
+Induced pluripotent stem cells
+Transcriptomics
+Proteomics
+Metabolomics
+Bioinformatics
+Systems biology
+Bioprocess engineering
+Fermentation
+Bioreactor
+Biocatalysis
+Protein engineering
+Enzyme immobilization
+Antibody production
+Monoclonal antibodies
+Recombinant antibodies
+Vaccine development
+DNA vaccines
+Adjuvant design
+Viral vectors
+Adeno-associated virus
+Lentiviral vectors
+Retroviral vectors
+Phage display
+Directed evolution
+High-throughput screening
+CRISPRi
+CRISPRa
+Base editing
+Prime editing
+Gene silencing
+RNA interference
+Antisense oligonucleotides
+CRISPR-based diagnostics
+Loop-mediated isothermal amplification
+Next-generation sequencing
+Whole genome sequencing
+Histone modification
+Chromatin remodeling
+CRISPR-based epigenome editing
+Synthetic circuits
+Metabolic engineering
+Pathway
+Perceptron
+Backpropagation
+Gradient Descent
+Stochastic Gradient Descent
+Activation Function
+ReLU
+Sigmoid
+Tanh
+Softmax
+Loss Function
+Cross-Entropy
+Mean Squared Error
+Overfitting
+Underfitting
+Regularization
+Dropout
+Batch Normalization
+L2 Regularization
+L1 Regularization
+Early Stopping
+Data Augmentation
+Convolutional Neural Network
+Recurrent Neural Network
+LSTM
+GRU
+Autoencoder
+Variational Autoencoder
+Generative Adversarial Network
+Reinforcement Learning
+Q-Learning
+Policy Gradient
+Actor-Critic
+Deep Q-Network
+Supervised Learning
+Unsupervised Learning
+Semi-Supervised Learning
+Transfer Learning
+Domain Adaptation
+Feature Extraction
+Embedding
+Word2Vec
+GloVe
+BERT
+Transformer
+Attention Mechanism
+Self-Attention
+Positional Encoding
+GPT
+RoBERTa
+ResNet
+Inception
+VGG
+AlexNet
+YOLO
+Faster R-CNN
+Mask R-CNN
+Object Detection
+Semantic Segmentation
+Instance Segmentation
+Edge Detection
+Optical Flow
+Bellman Equation
+Temporal Difference Learning
+Monte Carlo Methods
+Gradient Clipping
+Learning Rate Scheduling
+Adam Optimizer
+RMSProp
+SGD
+Momentum
+Nesterov Momentum
+Xavier Initialization
+He Initialization
+Hyperparameter Tuning
+Grid Search
+Random Search
+Bayesian Optimization
+Cross-Validation
+K-Fold
+Confusion Matrix
+Precision
+Recall
+F1 Score
+ROC Curve
+AUC
+Calibration
+Explainability
+SHAP
+LIME
+Saliency Map
+Federated Learning
+Edge AI
+TCP/IP
+UDP
+HTTP
+HTTPS
+FTP
+SFTP
+SSH
+Telnet
+SMTP
+IMAP
+POP3
+DNS
+DHCP
+ARP
+NAT
+PAT
+VPN
+SSL
+TLS
+IPSec
+BGP
+OSPF
+RIP
+EIGRP
+MPLS
+CDP
+LLDP
+SNMP
+NetFlow
+QoS
+ACL
+VLAN
+STP
+RSTP
+MSTP
+IGMP
+MLD
+IPv4
+IPv6
+CIDR
+Subnetting
+Supernetting
+Routing
+Switching
+Load Balancing
+Proxy
+Reverse Proxy
+CDN
+Cloud Computing
+Edge Computing
+SDN
+NFV
+LTE
+Wi-Fi
+Bluetooth
+Zigbee
+NFC
+RFID
+Ethernet
+Fast Ethernet
+Gigabit Ethernet
+Fiber Optic
+Coaxial Cable
+Twisted Pair
+PoE
+PoE+
+DHCP Snooping
+DHCP Relay
+Port Mirroring
+Network Tap
+NetBIOS
+SMB
+NFS
+CIFS
+LDAP
+Kerberos
+RADIUS
+TACACS+
+SNMPv3
+Syslog
+Netmask
+Gateway
+Default Route
+Next Hop
+Packet Sniffing
+Port Scanning
+ICMP
+Ping
+Traceroute
+ARP Spoofing
+DNS Spoofing
+Man-in-the-Middle
+DDoS
+IDS
+IPS
+Honeypot
+Firewall
+Stateful Inspection
+Stateful Packet Inspection
+Deep Packet Inspection
+Port Forwarding
+Network Address Translation
+Port Address Translation
+Proxy ARP
+Transparent Proxy
+Circuit Switching
+Packet Switching
+MPLS VPN
+L2VPN
+L3VPN
+IPsec VPN
+SSTP
+PPTP
+L2TP
+GRE
+VXLAN
+EVPN
+BFD
+RPKI
+IXPs
+Peering
+Transit
+Internet Exchange
+BGP Communities
+Route Reflectors
+Confederations
+Policy-Based Routing
+Traffic Engineering
+MPLS LSP
+MPLS Traffic Engineering
+MPLS TE Tunnels
+MPLS TE PCE
+MPLS TE Optimization
+MPLS TE LSP
+MPLS TE LSPs
+MPLS TE LSPs.
+Topological space
+Open set
+Closed set
+Basis
+Subbasis
+Continuous map
+Homeomorphism
+Homotopy
+Homotopy equivalence
+Fundamental group
+Covering space
+Fiber bundle
+Section
+Trivial bundle
+Nontrivial bundle
+Principal bundle
+Associated bundle
+Manifold
+Differentiable manifold
+Smooth manifold
+Topological manifold
+Piecewise linear manifold
+CW complex
+Simplicial complex
+Cellular complex
+Triangulation
+Polyhedron
+Simplex
+Edge
+Face
+Vertex
+Manifold with boundary
+Manifold with corners
+Orbifold
+Stratified space
+Singular space
+Lie group
+Lie algebra
+Representation
+Flag manifold
+Grassmannian
+Schubert cell
+Flag variety
+Projective space
+Euclidean space
+Hyperbolic space
+Spherical space
+Minkowski space
+Riemannian manifold
+Kähler manifold
+Symplectic manifold
+Calabi–Yau manifold
+Complex manifold
+Algebraic variety
+Smooth variety
+Variety
+Cohomology
+Homology
+Singular cohomology
+Čech cohomology
+Sheaf cohomology
+Betti number
+Euler characteristic
+Rank
+Characteristic class
+Chern class
+Pontryagin class
+Stiefel–Whitney class
+Todd class
+L-genus
+Chern–Weil theory
+Spectral sequence
+Mayer–Vietoris sequence
+Long exact sequence
+Short exact sequence
+Hurewicz theorem
+Poincaré duality
+Lefschetz duality
+Lefschetz fixed point theorem
+Seifert–van Kampen theorem
+Whitehead theorem
+Gysin sequence
+Thom isomorphism
+Hirsch–Smale theorem
+Embedding theorem
+Immersion theorem
+Nash embedding theorem
+Whitney embedding theorem
+Isotopy
+Dehn twist
+Mapping class group
+Teichmüller space
+Moduli space
+Moduli of curves
+Moduli of vector bundles
+Symplectic reduction
+Moment map
+Gromov–Witten invariant
+Mirror symmetry
+Floer homology
+Seiberg–Witten invariant
+Donaldson invariant
+Knot complement
+Seifert surface
+JSJ decomposition
+Heegaard splitting
+Hyperbolic 3-manifold
+Thurston geometrization
+Geodesic
+Curvature
+Ricci curvature
+Scalar curvature
+Sectional curvature
+Flat manifold
+Locally symmetric space
+Quotient space
+Alexandrov space
+Metric space
+Completeness
+Compactness
+Connectedness
+Simple connectivity
+Homogeneous space
+Isometry
+Conformal map
+Möbius transformation
+Riemann mapping theorem
+Universal cover
+Fundamental domain
+Symmetry group
+Reflection
+Rotation
+Scaling
+Affine transformation
+Projective transformation
+Cone
+Cylinder
+POS tagging
+BLEU
+ROUGE
+N-gram
+Laplace smoothing
+Jelinek-Mercer smoothing
+Zipf's law
+TF-IDF
+Authentication
+Authorization
+Encryption
+Decryption
+Cryptography
+Public Key Infrastructure
+Digital Signatures
+Hash Functions
+Message Authentication Codes
+Symmetric Key
+Asymmetric Key
+Key Exchange
+Certificate Authority
+SSL/TLS
+Packet Filtering
+Next-Generation Firewall
+Intrusion Detection System
+Intrusion Prevention System
+Honeynet
+Security Information and Event Management
+SIEM
+Log Management
+Log Analysis
+Threat Intelligence
+Malware
+Virus
+Worm
+Trojan
+Ransomware
+Adware
+Spyware
+Rootkit
+Zero-Day Exploit
+Exploit Kit
+Vulnerability
+CVE
+CVSS
+Patch Management
+Vulnerability Scanning
+Penetration Testing
+Red Team
+Blue Team
+Purple Team
+Social Engineering
+Phishing
+Spear Phishing
+Whaling
+BEC
+Credential Stuffing
+Brute Force
+Dictionary Attack
+Rainbow Table
+Replay Attack
+Cross-Site Scripting
+XSS
+SQL Injection
+CSRF
+Command Injection
+Buffer Overflow
+Race Condition
+Privilege Escalation
+Least Privilege
+Defense in Depth
+Incident Response
+Disaster Recovery
+Business Continuity
+Data Loss Prevention
+Information Assurance
+Security Architecture
+Secure Coding
+OWASP
+NIST
+ISO/IEC 27001
+GDPR
+HIPAA
+PCI DSS
+SOC
+MQTT
+CoAP
+HTTP/REST
+AMQP
+DDS
+LWM2M
+Z-Wave
+Thread
+BLE
+LoRaWAN
+NB-IoT
+Sigfox
+LTE-M
+Edge computing
+Fog computing
+Cloud computing
+Device shadow
+Device provisioning
+Over-the-air (OTA)
+Firmware over-the-air (FOTA)
+Secure boot
+Trusted execution environment (TEE)
+TPM
+Secure Element
+X.509 certificates
+OAuth 2.0
+OpenID Connect
+JSON Web Token (JWT)
+TLS/SSL
+DTLS
+WAC
+Device management
+OTA updates
+Sensor fusion
+Data analytics
+Predictive maintenance
+Time-series database
+InfluxDB
+Prometheus
+Grafana
+MQTT broker
+Mosquitto
+EMQ X
+HiveMQ
+RabbitMQ
+Apache Kafka
+Azure IoT Hub
+AWS IoT Core
+Google Cloud IoT Core
+ThingsBoard
+OpenHAB
+Home Assistant
+Prime
+Composite
+Divisor
+Multiple
+Greatest Common Divisor
+Least Common Multiple
+Euclidean Algorithm
+Bézout's Identity
+Unique Factorization Domain
+Fundamental Theorem of Arithmetic
+Pell's Equation
+Diophantine Equation
+Linear Diophantine Equation
+Quadratic Diophantine Equation
+Fermat's Last Theorem
+Fermat's Little Theorem
+Euler's Theorem
+Wilson's Theorem
+Wilson Prime
+Mersenne Prime
+Mersenne Number
+Repunit
+Repdigit
+Carmichael Number
+Carmichael
+Propositional logic
+Predicate logic
+First-order logic
+Second-order logic
+Modal logic
+Intuitionistic logic
+Relevance logic
+Type theory
+Lambda calculus
+Proof theory
+Model theory
+Set theory
+Gödel
+Polis
+Agora
+Let's produce final list now.Polis
+Steam engine
+Watt's steam engine
+Bessemer process
+Siemens-Martin process
+Blast furnace
+Puddling
+Crucible steel
+Power loom
+Spinning jenny
+Water frame
+Cotton gin
+Factory system
+Mechanization
+Industrial machinery
+Factory method
+Mass production
+Division of labor
+Assembly line
+Gauge standardization
+Transportation revolution
+Canal network
+Railways
+Locomotive
+Iron rails
+Telegraph
+Morse code
+Industrial capitalism
+Laissez-faire
+Mercantilism
+Capital accumulation
+Labor market
+Child labor
+Apprenticeship
+Guilds
+Industrial policy
+Protective tariffs
+Monopolies
+Trusts
+Standard of living
+Urbanization
+Migration
+Factory Acts
+Health and safety
+Pollution
+Air quality
+Water pollution
+Environmental impact
+Energy consumption
+Coal mining
+Iron ore extraction
+Metallurgy
+Smelting
+Thermodynamics
+Heat engine
+Pascal's law
+Pressure vessel
+Mechanical advantage
+Gear trains
+Camshaft
+Lifting gear
+Cranes
+Pulleys
+Conveyor belt
+Industrial design
+Product differentiation
+Brand development
+Advertising
+Consumer culture
+Market segmentation
+Economic growth
+GDP
+Productivity
+Innovation
+Patent system
+Intellectual property
+Scientific management
+Taylorism
+Labor unions
+Strike action
+Social reform
+Public health
+Sanitation
+Housing reforms
+Architectural changes
+Factory architecture
+Factory layout
+Work hours
+Workday
+Minimum wage
+Factory inspection
+Labor legislation
+Industrial espionage
+Industrial sabotage
+Labor migration
+Industrial diaspora
+Global trade
+Colonial
+Rhythme
+Cadence
+Synchronisation
+Ensemble
+Improvisation
+Représentation
+Mouvement
+Posture
+Alignement
+Game mechanics
+Game dynamics
+Game aesthetics
+Player agency
+Emergent gameplay
+Level design
+Game loop
+Narrative structure
+Player experience
+Flow state
+Skill progression
+Replayability
+Difficulty curve
+Balancing
+Game theory
+Player motivation
+Reward system
+Feedback loop
+Immersion
+Presence
+Tension
+Catharsis
+Game economy
+In-game economy
+Virtual economy
+Microtransaction
+Loot box
+Progression tree
+Skill tree
+Experience points
+Crafting system
+Exploration
+Sandbox
+Open world
+Procedural generation
+Randomized content
+Dynamic difficulty adjustment
+Narrative branching
+Choice architecture
+Moral choice
+Player choice
+Decision making
+Replay value
+Game design pattern
+Core loop
+Interface design
+User interface
+Accessibility
+Inclusive design
+Cross-platform
+Multiplayer
+Co-op
+Competitive
+Esports
+Player versus player (PvP)
+Player versus environment (PvE)
+AI behavior
+NPC behavior
+Pathfinding
+Finite state machine
+Behavior tree
+Animation
+Motion capture
+Texturing
+Lighting
+Physics engine
+Collision detection
+Audio design
+Soundtrack
+Ambient sound
+Voice acting
+Localization
+Transmedia storytelling
+Transmedia narrative
+Extended reality (XR)
+Virtual reality (VR)
+Augmented reality (AR)
+Mixed reality (MR)
+Game analytics
+A/B testing
+Retention
+Churn
+Monetization strategy
+Subscription model
+Freemium
+Gamepad
+Controller
+Touch interface
+Gesture control
+Intertextualité
+Métafiction
+Pastiche
+Bricolage
+Hypertexte
+Simulation
+Simulacre
+Déconstruction
+Différance
+Détournement
+Fragmentation narrative
+Non-linéarité temporelle
+Narrateur peu fiable
+Auto-réflexivité
+Post-structuralisme
+Hyperréalité
+Anachronisme
+Polyphonie
+Hétéroglossie
+Mise en abyme
+Paratext
+Métalangage
+Métadiscours
+Référentiel
+Parodie
+Ironie
+Montage
+Collage
+Appropriation
+Remix
+Jeu de lecture
+Jeu narratif
+Narration fragmentée
+Non-conformité
+Conflation
+Métaphore
+Métaphore visuelle
+Métaphore de la langue
+Métaphore de la réalité
+Métaphore du texte
+Métaphore du corps
+Métaphore de la mémoire
+Métaphore de la technologie
+Métaphore de l'Internet
+Métaphore du numérique
+Métaphore de l'espace
+Métaphore de la temporalité
+Métaphore de la perception
+Métaphore de la subjectivité
+Métaphore de la multiplicité
+Métaphore de l'identité
+Métaphore de la fragmentation
+Métaphore de la simulation
+Métaphore de la réalité virtuelle
+Métaphore de la réalité augmentée
+Métaphore du postmodernisme
+Métaphore du post-structuralisme
+Métaphore du récit
+Métaphore du narrateur
+Métaphore de l'intertextualité
+Métaphore de la narration
+Métaphore de la culture
+Métaphore de la connaissance
+Métaphore de l'information
+Métaphore de l'interaction
+Métaphore de l'évolution
+Métaphore de la convergence
+Métaphore de la rupture
+Métaphore de la continuité
+Métaphore de la désintégration
+Métaphore de la reconstruction
+Métaphore de la complexité
+Métaphore de la simplicité
+Métaphore de l'interconnexion
+Métaphore de la réinterprétation
+Mét
+Nanoparticle
+Carbon nanotube
+Graphene
+Fullerenes
+Nanowire
+Nanoporous material
+Nanofluidics
+Nanosensor
+Nanopatterning
+Electron beam lithography
+Self-assembly
+DNA origami
+Nanorobotics
+Surface plasmon resonance
+Nanoindentation
+Nanofabrication
+Nanocomposite
+Nanoparticle drug delivery
+Nanoparticle imaging
+Nanoparticle catalysis
+Nanozyme
+Nanoelectromechanical systems
+Nanophotonics
+Metamaterial
+Photonic crystal
+Nanocatalyst
+Nanoelectronics
+Nanoscale transistor
+Quantum computing
+Spintronics
+Nanoimprint lithography
+Block copolymer lithography
+Self-assembled monolayer
+Nanoparticle synthesis
+Bottom-up fabrication
+Top-down fabrication
+Atomic layer deposition
+Molecular beam epitaxy
+Chemical vapor deposition
+Electro
+Articulations
+Joints
+Servo
+Stepper
+PID
+Kinematics
+Inverse kinematics
+Forward kinematics
+Trajectory planning
+Path planning
+Motion control
+End-effector
+Gripper
+Force control
+Torque control
+Impedance control
+Admittance control
+Force sensing
+Torque sensing
+Force-torque sensor
+Compliance
+Stiffness
+Dynamic model
+Static model
+Machine vision
+Computer vision
+LiDAR
+Depth camera
+RGB-D
+SLAM
+Biosignatures
+Extinction events
+Hydrothermal vents
+Panspermia
+RNA world
+Prebiotic chemistry
+Liquid water
+Habitability zones
+Redox gradients
+Methane detection
+Atmospheric photochemistry
+Stellar UV flux
+Tidal heating
+Ice-covered oceans
+Exoplanet spectroscopy
+Biosphere modeling
+Astrobiological probes
+Organic synthesis pathways
+Carbon cycles
+Nitrogen cycles
+Sulfur cycles
+Phototrophy
+Chemolithotrophy
+Anabolic pathways
+Catabolic pathways
+Extremophiles
+Acidophiles
+Thermophiles
+Halophiles
+Cryophiles
+Radioactive decay heating
+Magnetosphere shielding
+Atmospheric escape
+Planetary differentiation
+Geologic activity
+Plate tectonics
+Volcanism
+Impact cratering
+Stellar evolution
+Habitable exomoons
+Carbonate-silicate cycle
+Oxygenic photosynthesis
+Anoxygenic photosynthesis
+Isotopic fractionation
+Radiative transfer models
+Spectral fingerprints
+Life-detection instruments
+Mass spectrometry
+Raman spectroscopy
+LIDAR
+Cryobiology
+Biogeochemical modeling
+Astrobiological databases
+Planetary protection
+Contamination risk
+Simulation of
+Isotopic ratios
+Oxygen isotopes
+Carbon isotopes
+Nitrogen isotopes
+Helium-3
+Radiocarbon dating
+Luminescence dating
+Paleosol
+Speleothem
+Ice core
+Sediment core
+Pollen analysis
+Diatom assemblages
+Foraminifera
+Marine sediment cores
+Terrestrial pollen cores
+Proxy data
+Climate reconstruction
+Δ14C
+Grain size
+Magnetic susceptibility
+Bioturbation
+Tephrochronology
+Orbital forcing
+Milankovitch cycles
+Precession
+Obliquity
+Eccentricity
+Solar irradiance
+Volcanic aerosols
+Greenhouse gases
+CO2 concentration
+CH4
+N2O
+Climate sensitivity
+Energy balance
+Teleconnection
+ENSO
+PDO
+NAO
+AMO
+Atlantic Meridional Overturning Circulation
+Thermocline
+Ocean circulation
+Freshwater input
+Thermohaline circulation
+Snow cover
+Sea ice
+Glacial cycles
+Interglacial
+Last Glacial Maximum
+Younger Dryas
+Dansgaard–Oeschger events
+Heinrich events
+Dansgaard–Oeschger
+Ice-sheet dynamics
+Glacial retreat
+Glacial advance
+Ground ice
+Permafrost
+Paleoclimate model
+General circulation model
+Climate proxy integration
+Bayesian reconstruction
+Ensemble modeling
+Paleoclimate simulation
+Climate variability
+Paleoclimate data assimilation
+Ocean-atmosphere interaction
+Carbon cycle
+Transit photometry
+Radial velocity
+Direct imaging
+Gravitational microlensing
+Astrometry
+Transit timing variations
+Rossiter‑McLaughlin effect
+Spectral energy distribution
+Atmospheric retrieval
+Transmission spectroscopy
+Emission spectroscopy
+Phase curve analysis
+Exo‑clouds
+Exo‑rings
+Exomoons
+Planetary albedo
+Planetary mass
+Planetary radius
+Bulk composition
+Interior structure
+Core‑mantle differentiation
+Tidal locking
+Roche lobe overflow
+Photochemical haze
+Rayleigh scattering
+Mie scattering
+High‑resolution spectroscopy
+Cross‑correlation technique
+Doppler tomography
+Stellar activity
+Star spots
+Granulation
+Stellar flares
+Magnetic fields
+Planetary magnetosphere
+Habitability zone
+Circumstellar habitable zone
+Greenhouse effect
+Runaway greenhouse
+Snowball Earth
+Planetary migration
+Type I migration
+Type II migration
+Disk instability
+Core accretion
+Pebble accretion
+Resonant chains
+TTVs
+Kozai mechanism
+Secular perturbations
+Kozai–Lidov cycles
+Spin–orbit alignment
+Stellar metallicity
+Stellar age
+Host star spectral type
+Spectral classification
+Photometric precision
+Signal‑to‑noise ratio
+Data reduction pipeline
+Bayesian inference
+Markov Chain Monte Carlo
+Nested sampling
+Transit depth
+Eclipse mapping
+Occultation
+Light‑curve modeling
+Limb darkening
+Conscience artificielle
+Intentionnalité
+Qualia
+Self‑awareness
+Théorie du mind‑body
+Modélisation neuronale
+Réseaux de neurones profonds
+Plasticité synaptique
+Plasticité neuronale
+Plasticité cérébrale
+Emergence
+Global workspace
+Interface cerveau‑machine
+Machine learning
+Deep learning
+Machine perception
+Simulation neuronale
+Modèle d’état interne
+Algorithme évolutionnaire
+Intelligence artificielle générale
+Intelligence artificielle spécialisée
+Réseau de neurones récurrent
+Réseau de neurones convolutif
+Réseau de neurones à attention
+Référentiel de connaissances
+Ontologie
+Représentation symbolique
+Apprentissage symbolique
+Apprentissage hybride
+Mémoire à long terme
+Mémoire à court
