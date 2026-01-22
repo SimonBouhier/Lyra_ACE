@@ -597,6 +597,69 @@ class MultiModelClient:
 
         return responses
 
+    async def batch_generate_sequential(
+        self,
+        questions: List[str],
+        models: List[str],
+        physics_state: PhysicsState,
+        system_prompt: Optional[str] = None
+    ) -> Dict[str, List[ModelResponse]]:
+        """
+        Process multiple questions with multiple models using VRAM-optimal batching.
+
+        STRATEGY:
+        - Load model 1 → process ALL questions → unload
+        - Load model 2 → process ALL questions → unload
+        - etc.
+
+        This minimizes VRAM usage by keeping only one model loaded at a time.
+
+        Args:
+            questions: List of questions to process
+            models: List of models to use
+            physics_state: Physics state for temperature mapping
+            system_prompt: Optional system prompt
+
+        Returns:
+            Dict[model_name, List[ModelResponse]] - responses organized by model
+        """
+        from services.esmm.model_rotator import get_model_rotator, BatchModelResult
+
+        temperature = map_tau_to_temperature(physics_state.tau_c)
+
+        # Use ModelRotator for VRAM-managed batch processing
+        rotator = await get_model_rotator(self.base_url, self.num_ctx)
+
+        batch_result = await rotator.batch_sequential_models(
+            models=models,
+            questions=questions,
+            system_prompt=system_prompt,
+            temperature=temperature
+        )
+
+        # Convert RotatedResponse → ModelResponse
+        results: Dict[str, List[ModelResponse]] = {}
+        for model, responses in batch_result.results.items():
+            results[model] = [
+                ModelResponse(
+                    model=r.model,
+                    text=r.text,
+                    latency_ms=r.latency_ms,
+                    tokens=r.tokens,
+                    success=r.success,
+                    error=r.error
+                )
+                for r in responses
+            ]
+
+        logger.info(
+            f"[MultiModel] Batch complete: {batch_result.models_processed} models × "
+            f"{batch_result.questions_per_model} questions in "
+            f"{batch_result.total_duration_ms:.0f}ms"
+        )
+
+        return results
+
     def compute_consensus(
         self,
         responses: Dict[str, ModelResponse]
