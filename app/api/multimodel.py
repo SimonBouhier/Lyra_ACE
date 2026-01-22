@@ -12,7 +12,8 @@ from typing import List
 
 from app.models import (
     MultiModelRequest, MultiModelResponse,
-    MultiModelResponseItem, ConsensusMetricsModel
+    MultiModelResponseItem, ConsensusMetricsModel,
+    BatchMultiModelRequest, BatchMultiModelResponse, BatchModelResponseItem
 )
 from app.llm_client import get_multi_model_client, MultiModelClient
 from database import get_db, ISpaceDB
@@ -133,6 +134,110 @@ async def generate_multi(
         best_model=best.model,
         responses=response_items,
         consensus=ConsensusMetricsModel(**consensus.to_dict()),
+        session_id=session_id,
+        physics_state=physics_state.to_dict()
+    )
+
+
+@router.post("/batch-generate", response_model=BatchMultiModelResponse)
+async def batch_generate_multi(
+    request: BatchMultiModelRequest,
+    db: ISpaceDB = Depends(get_database),
+    client: MultiModelClient = Depends(get_multi_client)
+):
+    """
+    Génère des réponses pour plusieurs questions avec plusieurs modèles.
+
+    STRATÉGIE VRAM-OPTIMALE:
+    - Charge modèle 1 → traite TOUTES les questions → décharge
+    - Charge modèle 2 → traite TOUTES les questions → décharge
+    - etc.
+
+    Cela minimise l'utilisation VRAM en gardant un seul modèle chargé à la fois.
+
+    Example:
+        POST /multimodel/batch-generate
+        {
+            "questions": [
+                "What is entropy?",
+                "Explain photosynthesis",
+                "What is gravity?"
+            ],
+            "models": ["llama3.1:8b", "mistral:7b"],
+            "profile": "analytical",
+            "system_prompt": "Answer concisely in 2-3 sentences."
+        }
+
+    Returns:
+        BatchMultiModelResponse with responses organized by model
+    """
+    import time
+    start_time = time.time()
+
+    # Vérifier que les modèles sont disponibles
+    available = await client.list_available_models()
+    unavailable = [m for m in request.models if m not in available]
+    if unavailable:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Models not available: {unavailable}. Available: {available}"
+        )
+
+    # Session
+    session_id = request.session_id or str(uuid.uuid4())
+
+    # Charger le profil Bézier
+    profile = await db.get_profile(request.profile)
+    if not profile:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Profile '{request.profile}' not found"
+        )
+
+    engine = BezierEngine.from_profile(profile)
+
+    # Obtenir le nombre de messages pour le time mapping
+    async with db.connection() as conn:
+        cursor = await conn.execute(
+            "SELECT COUNT(*) FROM events WHERE session_id = ?",
+            (session_id,)
+        )
+        msg_count = (await cursor.fetchone())[0]
+
+    t = TimeMapper.logarithmic(msg_count, max_messages=100)
+    physics_state = engine.compute_state(t)
+
+    # Générer avec batching séquentiel (VRAM-optimal)
+    responses = await client.batch_generate_sequential(
+        questions=request.questions,
+        models=request.models,
+        physics_state=physics_state,
+        system_prompt=request.system_prompt
+    )
+
+    total_duration_ms = (time.time() - start_time) * 1000
+
+    # Formater la réponse
+    formatted_responses = {}
+    for model, model_responses in responses.items():
+        formatted_responses[model] = [
+            BatchModelResponseItem(
+                question_index=i,
+                text=r.text,
+                latency_ms=r.latency_ms,
+                tokens=r.tokens,
+                success=r.success,
+                error=r.error
+            )
+            for i, r in enumerate(model_responses)
+        ]
+
+    return BatchMultiModelResponse(
+        responses=formatted_responses,
+        models_processed=len(request.models),
+        questions_processed=len(request.questions),
+        total_duration_ms=total_duration_ms,
+        vram_managed=True,
         session_id=session_id,
         physics_state=physics_state.to_dict()
     )
