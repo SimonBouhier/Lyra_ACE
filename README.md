@@ -314,7 +314,7 @@ Contributions welcome! See [contribution guide](docs/en/DEVELOPER_GUIDE.md#contr
 
 ### License
 
-MIT License - see [LICENSE](LICENSE)
+CC-BY NC 4.0 License - see [LICENSE](LICENSE)
 
 ---
 
