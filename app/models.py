@@ -351,6 +351,96 @@ class MultiModelResponse(BaseModel):
 
 
 # ============================================================================
+# BATCH MULTI-MODEL MODELS (VRAM-Optimized)
+# ============================================================================
+
+class BatchMultiModelRequest(BaseModel):
+    """
+    Requête de génération batch multi-modèles avec batching séquentiel.
+
+    STRATÉGIE VRAM:
+    - Charge modèle 1 → traite TOUTES les questions → décharge
+    - Charge modèle 2 → traite TOUTES les questions → décharge
+    - etc.
+
+    Example:
+        {
+            "questions": [
+                "What is entropy?",
+                "Explain photosynthesis",
+                "What is gravity?"
+            ],
+            "models": ["llama3.1:8b", "mistral:7b"],
+            "profile": "analytical",
+            "system_prompt": "You are a science teacher."
+        }
+    """
+    questions: List[str] = Field(
+        ...,
+        min_length=1,
+        max_length=100,
+        description="List of questions to process"
+    )
+    models: List[str] = Field(
+        ...,
+        min_length=1,
+        max_length=10,
+        description="List of models to use"
+    )
+    session_id: Optional[str] = None
+    profile: str = Field("balanced", description="Bézier profile name")
+    system_prompt: Optional[str] = Field(
+        None,
+        max_length=5000,
+        description="Optional system prompt for all questions"
+    )
+
+    model_config = ConfigDict(frozen=False)
+
+
+class BatchModelResponseItem(BaseModel):
+    """Réponse d'une question pour un modèle."""
+    question_index: int
+    text: str
+    latency_ms: float
+    tokens: Dict[str, int]
+    success: bool
+    error: Optional[str] = None
+
+    model_config = ConfigDict(frozen=True)
+
+
+class BatchMultiModelResponse(BaseModel):
+    """
+    Réponse du batch multi-modèles.
+
+    Les réponses sont organisées par modèle, chaque modèle ayant
+    une liste de réponses correspondant aux questions d'entrée.
+
+    Example:
+        {
+            "responses": {
+                "llama3.1:8b": [...],
+                "mistral:7b": [...]
+            },
+            "models_processed": 2,
+            "questions_processed": 3,
+            "total_duration_ms": 15000.0,
+            "vram_managed": true
+        }
+    """
+    responses: Dict[str, List[BatchModelResponseItem]]
+    models_processed: int
+    questions_processed: int
+    total_duration_ms: float
+    vram_managed: bool
+    session_id: str
+    physics_state: Dict[str, float]
+
+    model_config = ConfigDict(frozen=True)
+
+
+# ============================================================================
 # GRAPH DELTA MODELS (Lyra-ACE)
 # ============================================================================
 
@@ -402,6 +492,132 @@ class KappaResponse(BaseModel):
     kappa_jaccard: float
     kappa_hybrid: float
     alpha: float
+
+    model_config = ConfigDict(frozen=True)
+
+
+# ============================================================================
+# ESMM PHASE 1 MODELS
+# ============================================================================
+
+class PopulateRequest(BaseModel):
+    """
+    Requête de population du graphe depuis topics.txt.
+
+    Example:
+        {
+            "source_file": "data/topics.txt",
+            "generate_embeddings": true,
+            "batch_size": 50,
+            "skip_existing": true
+        }
+    """
+    source_file: str = Field("data/topics.txt", description="Chemin vers le fichier topics")
+    generate_embeddings: bool = Field(True, description="Générer les embeddings via Ollama")
+    batch_size: int = Field(50, ge=1, le=200, description="Taille du batch pour les embeddings")
+    skip_existing: bool = Field(True, description="Ignorer les concepts déjà existants")
+
+    model_config = ConfigDict(frozen=False)
+
+
+class PopulateResponse(BaseModel):
+    """Réponse de population du graphe."""
+    concepts_loaded: int
+    concepts_skipped: int
+    embeddings_generated: int
+    embeddings_failed: int
+    duplicates_found: int
+    duration_ms: float
+    errors: List[str] = Field(default_factory=list)
+
+    model_config = ConfigDict(frozen=True)
+
+
+class GenerateRelationsRequest(BaseModel):
+    """
+    Requête de génération de relations par similarité.
+
+    Example:
+        {
+            "similarity_threshold": 0.6,
+            "confidence": 0.7,
+            "max_neighbors": 20,
+            "limit_concepts": null
+        }
+    """
+    similarity_threshold: float = Field(0.6, ge=0.3, le=0.95, description="Seuil de similarité [0.3, 0.95]")
+    confidence: float = Field(0.7, ge=0.1, le=1.0, description="Confiance des relations auto-générées")
+    max_neighbors: int = Field(20, ge=1, le=100, description="Nombre max de voisins par concept")
+    limit_concepts: Optional[int] = Field(None, ge=1, description="Limite de concepts à traiter")
+
+    model_config = ConfigDict(frozen=False)
+
+
+class GenerateRelationsResponse(BaseModel):
+    """Réponse de génération de relations."""
+    relations_created: int
+    relations_skipped: int
+    concepts_processed: int
+    average_similarity: float
+    duration_ms: float
+    errors: List[str] = Field(default_factory=list)
+
+    model_config = ConfigDict(frozen=True)
+
+
+class InjectSeedRequest(BaseModel):
+    """
+    Requête d'injection de la graine ESMM.
+
+    Example:
+        {
+            "seed_type": "standard",
+            "generate_embeddings": true,
+            "skip_existing_concepts": true
+        }
+    """
+    seed_type: str = Field("standard", pattern="^(minimal|standard|extended)$", description="Type de graine")
+    generate_embeddings: bool = Field(True, description="Générer les embeddings pour nouveaux concepts")
+    skip_existing_concepts: bool = Field(True, description="Ne pas écraser les concepts existants")
+
+    model_config = ConfigDict(frozen=False)
+
+
+class InjectSeedResponse(BaseModel):
+    """Réponse d'injection de la graine."""
+    concepts_created: int
+    relations_created: int
+    concepts_existed: int
+    duration_ms: float
+    seed_type: str
+    errors: List[str] = Field(default_factory=list)
+
+    model_config = ConfigDict(frozen=True)
+
+
+class SimilarConceptsRequest(BaseModel):
+    """Requête de recherche de concepts similaires."""
+    concept_id: str = Field(..., min_length=1, description="ID du concept source")
+    top_k: int = Field(10, ge=1, le=100, description="Nombre de résultats")
+    min_similarity: float = Field(0.5, ge=0.0, le=1.0, description="Similarité minimum")
+
+    model_config = ConfigDict(frozen=False)
+
+
+class SimilarConceptsResponse(BaseModel):
+    """Réponse de recherche de concepts similaires."""
+    concept_id: str
+    similar_concepts: List[Dict[str, Any]]
+    count: int
+
+    model_config = ConfigDict(frozen=True)
+
+
+class Phase1StatsResponse(BaseModel):
+    """Statistiques complètes de la Phase 1."""
+    population: Dict[str, Any] = Field(..., description="Stats de population")
+    relations: Dict[str, Any] = Field(..., description="Stats de relations")
+    seed: Dict[str, Any] = Field(..., description="Stats de la graine")
 
     model_config = ConfigDict(frozen=True)
 
