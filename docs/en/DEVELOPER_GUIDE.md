@@ -1571,7 +1571,7 @@ See [GitHub Issues](https://github.com/yourusername/lyra_clean_bis/issues) for:
 - [Ollama API](https://github.com/ollama/ollama/blob/main/docs/api.md)
 - [Bézier curves (Wikipedia)](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
 - [SQLite optimization](https://www.sqlite.org/optoverview.html)
-
+- [ACE framework](https://arxiv.org/pdf/2510.04618)
 ### Papers
 
 - **Consciousness metrics**: Epistemological approaches to AI introspection
@@ -1579,10 +1579,11 @@ See [GitHub Issues](https://github.com/yourusername/lyra_clean_bis/issues) for:
 
 ### Community
 
-- 💬 [GitHub Discussions](https://github.com/yourusername/lyra_clean_bis/discussions)
-- 📧 Mailing list: lyra-dev@example.com
-- 🐦 Twitter: @lyra_clean
+- 💬 [GitHub Discussions](https://github.com/SimonBouhier/Lyra_ACE/discussions)
+- 📧 Mailing list: simon.bouhier@proton.me
+- 🐦 Twitter: @SimonOrdos
 
 ---
 
 **Next step:** See [Configuration](CONFIGURATION.md) to customize Lyra.
+
