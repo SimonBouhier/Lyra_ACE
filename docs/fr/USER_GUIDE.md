@@ -64,7 +64,7 @@ Lyra Clean est un système conversationnel LLM qui contrôle la génération de 
 
 ```bash
 # 1. Cloner le dépôt
-git clone https://github.com/yourusername/lyra_clean_bis.git
+git clone https:/SimonBouhier/github.com//lyra_clean_bis.git
 cd lyra_clean_bis
 
 # 2. Créer un environnement virtuel
@@ -1035,3 +1035,4 @@ Résumé :
 ---
 
 **Prochaine étape :** Consultez le [Developer Guide](DEVELOPER_GUIDE.md) pour contribuer ou personnaliser Lyra.
+
